@@ -1,62 +1,57 @@
 "use client";
 import React, { useState } from "react";
 
-const LoginPage = () => {
+const CreateBlog = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    title: "",
+    content: "",
   });
 
   const handleChange = (e) => {
-    setFormData((previousData) => ({
-      ...previousData,
-      [e.target.name]: e.target.value,
-    }));
+    const { id, value } = e.target;
+    setFormData((previousData) => ({ ...previousData, [id]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    console.log("Blog data:", formData);
   };
 
   return (
     <div>
-      <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
-        {/* Email input */}
+      <form onSubmit={handleSubmit}>
+        {/* Blog Title */}
         <div className="mb-6">
           <label
-            htmlFor="email"
+            htmlFor="title"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Email address
+            Blog Title
           </label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="text"
+            id="title"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="john.doe@company.com"
-            value={formData.email}
+            placeholder="Enter your blog title"
+            value={formData.title}
             onChange={handleChange}
             required
           />
         </div>
 
-        {/* Password inputs */}
+        {/* Blog Content */}
         <div className="mb-6">
           <label
-            htmlFor="password"
+            htmlFor="content"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Password
+            Blog Content
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
+          <textarea
+            id="content"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="•••••••••"
-            value={formData.password}
+            placeholder="Write your blog content here"
+            value={formData.content}
             onChange={handleChange}
             required
           />
@@ -65,13 +60,13 @@ const LoginPage = () => {
         {/* Submit button */}
         <button
           type="submit"
-          className="text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full  px-5 py-2.5 text-center"
+          className="text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full px-5 py-2.5 text-center"
         >
-          Login
+          Create Blog
         </button>
       </form>
     </div>
   );
 };
 
-export default LoginPage;
+export default CreateBlog;
