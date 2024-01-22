@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,11 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    if (formData.password !== formData.confirmPassword) {
+      return toast.error("Password not matched");
+    }
+    const { confirmPassword, ...restData } = formData;
+    console.log("Form data:", restData);
   };
 
   return (

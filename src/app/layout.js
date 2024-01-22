@@ -1,6 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -15,8 +16,8 @@ export default function RootLayout({ children }) {
       <body className={`${montserrat.className} `}>
         <div className="w-full max-w-[1440px] mx-auto px-5 lg:px-12">
           <Header />
-
           <section className="py-5">{children}</section>
+          <Toaster />
         </div>
       </body>
     </html>
