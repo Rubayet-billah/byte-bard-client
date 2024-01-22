@@ -1,4 +1,5 @@
 "use client";
+import { loginUser } from "@/lib/user/fetchApi";
 import React, { useState } from "react";
 
 const LoginPage = () => {
@@ -14,9 +15,23 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    try {
+      const response = await loginUser(formData);
+
+      if (response.status !== 201) {
+        return toast.error(response.message);
+      }
+
+      if (response.status !== 200) {
+        return toast.error(response.message);
+      }
+
+      if (response.data) toast.success("Login successfully!");
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
   };
 
   return (
