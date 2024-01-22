@@ -1,4 +1,5 @@
 "use client";
+import { registerUser } from "@/lib/user/fetchApi";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -19,13 +20,25 @@ const RegisterPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      return toast.error("Password not matched");
+
+    try {
+      if (formData.password !== formData.confirmPassword) {
+        return toast.error("Password not matched");
+      }
+      const { confirmPassword, ...restData } = formData;
+      console.log("Form data:", restData);
+      const response = await registerUser(restData);
+
+      if (response.status !== 201) {
+        return toast.error(response.message);
+      }
+
+      if (response.data) toast.success("Registered successfully!");
+    } catch (error) {
+      console.error("Error during form submission:", error);
     }
-    const { confirmPassword, ...restData } = formData;
-    console.log("Form data:", restData);
   };
 
   return (
