@@ -1,21 +1,38 @@
 "use client";
+import { createBlogPost } from "@/lib/blog/blogApi";
+import httpStatus from "http-status";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const CreateBlog = () => {
+  const { user } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    category: "universal",
+    category: "Universal",
   });
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((previousData) => ({ ...previousData, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Blog data:", formData);
+    try {
+      const response = await createBlogPost({ userId: user._id, ...formData });
+      if (response.status === httpStatus.CREATED) {
+        toast.success("Your blog is successfully posted.");
+        router.push("/");
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -54,11 +71,11 @@ const CreateBlog = () => {
             onChange={handleChange}
             required
           >
-            <option value="universal">Universal</option>
-            <option value="technology">Technology</option>
-            <option value="science">Science</option>
-            <option value="astronomy">Astronomy</option>
-            <option value="literature">Literature</option>
+            <option value="Universal">Universal</option>
+            <option value="Technology">Technology</option>
+            <option value="Science">Science</option>
+            <option value="Astronomy">Astronomy</option>
+            <option value="Literature">Literature</option>
           </select>
         </div>
 

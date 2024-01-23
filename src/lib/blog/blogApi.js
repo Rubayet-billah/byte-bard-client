@@ -1,6 +1,6 @@
 export const createBlogPost = async (postData) => {
   try {
-    const result = await fetch("http://localhost:5000/blogs/create-post", {
+    const result = await fetch("http://localhost:5000/posts/create-post", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(postData),
@@ -14,7 +14,7 @@ export const createBlogPost = async (postData) => {
 
 export const getBlogPosts = async () => {
   try {
-    const result = await fetch("http://localhost:5000/blogs");
+    const result = await fetch("http://localhost:5000/posts");
     return await result.json();
   } catch (error) {
     console.error("Error getting blog posts:", error);
@@ -24,9 +24,7 @@ export const getBlogPosts = async () => {
 
 export const getBlogPostById = async (postId) => {
   try {
-    const result = await fetch(
-      `http://localhost:5000/blogs/get-post/${postId}`
-    );
+    const result = await fetch(`http://localhost:5000/posts/${postId}`);
     return await result.json();
   } catch (error) {
     console.error("Error getting blog post by ID:", error);
@@ -36,7 +34,7 @@ export const getBlogPostById = async (postId) => {
 
 export const updateBlogPost = async (postId, updatedData) => {
   try {
-    const result = await fetch(`http://localhost:5000/blogs/${postId}`, {
+    const result = await fetch(`http://localhost:5000/posts/${postId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedData),
@@ -50,7 +48,7 @@ export const updateBlogPost = async (postId, updatedData) => {
 
 export const deleteBlogPost = async (postId) => {
   try {
-    const result = await fetch(`http://localhost:5000/blogs/${postId}`, {
+    const result = await fetch(`http://localhost:5000/posts/${postId}`, {
       method: "DELETE",
     });
     return await result.json();
