@@ -29,3 +29,12 @@ export const clearLocalStorage = () => {
     localStorage.clear();
   }
 };
+
+export const formatStringDate = (date) => {
+  let newDate = new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+    day: "numeric",
+  });
+  return newDate;
+};
