@@ -1,6 +1,9 @@
 "use client";
 import { loginUser } from "@/lib/user/userApi";
+import constants from "@/utils/constants";
+import { setToLocalStorage } from "@/utils/helperFunctions";
 import httpStatus from "http-status";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -9,6 +12,8 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+
+  const router = useRouter();
 
   const handleChange = (e) => {
     setFormData((previousData) => ({
@@ -26,8 +31,11 @@ const LoginPage = () => {
         return toast.error(response.message);
       }
 
-      if (response.data) toast.success("Login successfully!");
-      console.log(response.data);
+      if (response.data) {
+        toast.success("Login successfully!");
+        setToLocalStorage(constants.authKey, response.data);
+        router.push("/");
+      }
     } catch (error) {
       console.error("Error during form submission:", error);
     }
@@ -56,7 +64,7 @@ const LoginPage = () => {
           />
         </div>
 
-        {/* Password inputs */}
+        {/* Password input */}
         <div className="mb-6">
           <label
             htmlFor="password"
