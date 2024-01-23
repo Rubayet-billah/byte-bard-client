@@ -3,6 +3,7 @@ import React from "react";
 import carImage from "@/assets/car.jpg";
 import { GrNext } from "react-icons/gr";
 import { formatStringDate } from "@/utils/helperFunctions";
+import Link from "next/link";
 
 const BlogCard = ({ post }) => {
   const { _id, authorName, title, category, content, createdAt } = post;
@@ -39,9 +40,11 @@ const BlogCard = ({ post }) => {
 
         {/* Action Buttons */}
         <div className="flex justify-end">
-          <button className="flex items-center gap-1 font-bold duration-150 hover:scale-105">
-            Read Full <GrNext className="font-extrabold" />
-          </button>
+          <Link href={`/blogs/${_id}`}>
+            <button className="flex items-center gap-1 font-bold duration-150 hover:scale-105">
+              Read Full <GrNext className="font-extrabold" />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
