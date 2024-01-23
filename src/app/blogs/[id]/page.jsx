@@ -4,18 +4,26 @@ const BlogPage = () => {
   const blogData = {
     title: "Sample Blog Post",
     author: "John Doe",
+    category: "Technology",
     content:
       "This is the content of the blog post. It can be a long piece of text.",
     publishDate: "January 15, 2023",
   };
 
   return (
-    <div className="p-8 mx-auto max-w-7xl">
+    <div className="p-8 mx-auto rounded max-w-7xl bg-slate-100">
       <h1 className="mb-4 text-3xl font-bold">{blogData.title}</h1>
-      <div className="mb-2">
-        <p className="text-xl font-bold text-gray-600 ">{blogData.author}</p>
-        <p className="text-gray-600 ">{blogData.publishDate}</p>
-      </div>
+      <section className="flex justify-between mb-2">
+        <div>
+          <p className="text-xl font-bold text-gray-600 ">{blogData.author}</p>
+          <p className="text-gray-600 ">{blogData.publishDate}</p>
+        </div>
+        <div>
+          <p className="px-3 py-1 mt-1 font-bold text-white bg-green-500 rounded-full">
+            {blogData.category}
+          </p>
+        </div>
+      </section>
       <div className="prose">
         {blogData.content}
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus non eos

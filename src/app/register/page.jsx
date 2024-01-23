@@ -1,5 +1,5 @@
 "use client";
-import { registerUser } from "@/lib/user/fetchApi";
+import { registerUser } from "@/lib/user/userApi";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 

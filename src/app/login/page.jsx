@@ -1,5 +1,5 @@
 "use client";
-import { loginUser } from "@/lib/user/fetchApi";
+import { loginUser } from "@/lib/user/userApi";
 import React, { useState } from "react";
 
 const LoginPage = () => {
