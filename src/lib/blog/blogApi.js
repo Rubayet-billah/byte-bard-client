@@ -21,6 +21,17 @@ export const getBlogPosts = async () => {
     throw error;
   }
 };
+export const getMyBlogPosts = async (authorId) => {
+  try {
+    const result = await fetch(
+      `http://localhost:5000/posts?authorId=${authorId}`
+    );
+    return await result.json();
+  } catch (error) {
+    console.error("Error getting blog posts:", error);
+    throw error;
+  }
+};
 
 export const getBlogPostById = async (postId) => {
   try {

@@ -1,11 +1,22 @@
-import { getBlogPosts } from "@/lib/blog/blogApi";
+"use client";
+import { getMyBlogPosts } from "@/lib/blog/blogApi";
 import { formatStringDate } from "@/utils/helperFunctions";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const MyBlogs = async () => {
-  const result = await getBlogPosts(); // Assuming getBlogPosts is defined
-  const blogs = result.data;
+const MyBlogs = () => {
+  const { user } = useSelector((state) => state.user);
+  const [blogPosts, setBlogPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getMyBlogPosts(user?._id);
+      const blogs = result.data;
+      setBlogPosts(blogs);
+    };
+    fetchData();
+  }, [user]);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -24,7 +35,7 @@ const MyBlogs = async () => {
           </tr>
         </thead>
         <tbody>
-          {blogs.map((blog, index) => (
+          {blogPosts?.map((blog, index) => (
             <tr
               key={index}
               className={`${index % 2 !== 0 ? "bg-gray-50" : "bg-white"} `}
