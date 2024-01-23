@@ -1,13 +1,27 @@
 "use client";
-import { getMyBlogPosts } from "@/lib/blog/blogApi";
+import { deleteBlogPost, getMyBlogPosts } from "@/lib/blog/blogApi";
 import { formatStringDate } from "@/utils/helperFunctions";
+import httpStatus from "http-status";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const MyBlogs = () => {
   const { user } = useSelector((state) => state.user);
   const [blogPosts, setBlogPosts] = useState([]);
+
+  const handleDelete = async (blog) => {
+    console.log(blog);
+    if (blog.author._id.toString() !== user._id) {
+      return toast.error("Unauthorized user");
+    } else {
+      const result = await deleteBlogPost(blog._id);
+      if (result.status === httpStatus.OK) {
+        toast.success("Blog deleted successfully");
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,8 +59,8 @@ const MyBlogs = () => {
               </td>
               <td className="px-6 py-4">{formatStringDate(blog.createdAt)}</td>
               <td className="flex gap-2 px-6 py-4">
-                <Link href={""}>Edit</Link>
-                <button>Delete</button>
+                <Link href={`/blogs/edit/${blog._id}`}>Edit</Link>
+                <button onClick={() => handleDelete(blog)}>Delete</button>
               </td>
             </tr>
           ))}

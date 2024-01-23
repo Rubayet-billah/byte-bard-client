@@ -1,12 +1,16 @@
 "use client";
-import { createBlogPost } from "@/lib/blog/blogApi";
+import {
+  editBlogPost,
+  getBlogPostById,
+  updateBlogPost,
+} from "@/lib/blog/blogApi";
 import httpStatus from "http-status";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
-const CreateBlog = () => {
+const EditBlogPost = ({ params }) => {
   const { user } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     title: "",
@@ -14,22 +18,43 @@ const CreateBlog = () => {
     category: "Universal",
   });
   const router = useRouter();
+  const blogId = params.id;
+
+  useEffect(() => {
+    const fetchBlogPost = async () => {
+      const response = await getBlogPostById(blogId);
+
+      if (response.status === httpStatus.OK) {
+        const blogData = response.data;
+        setFormData({
+          title: blogData.title,
+          content: blogData.content,
+          category: blogData.category,
+        });
+      } else {
+        toast.error(response.message);
+      }
+    };
+
+    fetchBlogPost();
+  }, [blogId]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((previousData) => ({ ...previousData, [name]: value }));
+    const { id, value } = e.target;
+    setFormData((previousData) => ({ ...previousData, [id]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await createBlogPost({
+      const response = await updateBlogPost(blogId, {
         userId: user._id,
         authorName: user.firstName + " " + user.lastName,
         ...formData,
       });
-      if (response.status === httpStatus.CREATED) {
-        toast.success("Your blog is successfully posted.");
+
+      if (response.status === httpStatus.OK) {
+        toast.success("Your blog post is successfully updated.");
         router.push("/");
       } else {
         toast.error(response.message);
@@ -109,11 +134,11 @@ const CreateBlog = () => {
           type="submit"
           className="text-white bg-violet-600 hover:bg-violet-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full px-5 py-2.5 text-center"
         >
-          Create Blog
+          Update Blog
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateBlog;
+export default EditBlogPost;
