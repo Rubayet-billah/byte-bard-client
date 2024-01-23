@@ -1,5 +1,6 @@
 "use client";
 import { registerUser } from "@/lib/user/userApi";
+import httpStatus from "http-status";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -28,10 +29,10 @@ const RegisterPage = () => {
         return toast.error("Password not matched");
       }
       const { confirmPassword, ...restData } = formData;
-      console.log("Form data:", restData);
       const response = await registerUser(restData);
 
-      if (response.status !== 201) {
+      console.log(response, "from register");
+      if (response.status !== httpStatus.CREATED) {
         return toast.error(response.message);
       }
 

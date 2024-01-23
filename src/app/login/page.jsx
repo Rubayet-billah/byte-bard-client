@@ -1,6 +1,8 @@
 "use client";
 import { loginUser } from "@/lib/user/userApi";
+import httpStatus from "http-status";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -20,15 +22,12 @@ const LoginPage = () => {
     try {
       const response = await loginUser(formData);
 
-      if (response.status !== 201) {
-        return toast.error(response.message);
-      }
-
-      if (response.status !== 200) {
+      if (response.status !== httpStatus.OK) {
         return toast.error(response.message);
       }
 
       if (response.data) toast.success("Login successfully!");
+      console.log(response.data);
     } catch (error) {
       console.error("Error during form submission:", error);
     }
