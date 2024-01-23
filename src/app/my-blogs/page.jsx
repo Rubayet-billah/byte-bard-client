@@ -6,6 +6,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import action from "../action";
+import constants from "@/utils/constants";
 
 const MyBlogs = () => {
   const { user } = useSelector((state) => state.user);
@@ -18,6 +20,7 @@ const MyBlogs = () => {
     } else {
       const result = await deleteBlogPost(blog._id);
       if (result.status === httpStatus.OK) {
+        action(constants.blogsTag);
         toast.success("Blog deleted successfully");
       }
     }

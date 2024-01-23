@@ -1,3 +1,5 @@
+import constants from "@/utils/constants";
+
 export const createBlogPost = async (postData) => {
   try {
     const result = await fetch("http://localhost:5000/posts/create-post", {
@@ -14,7 +16,9 @@ export const createBlogPost = async (postData) => {
 
 export const getBlogPosts = async () => {
   try {
-    const result = await fetch("http://localhost:5000/posts");
+    const result = await fetch("http://localhost:5000/posts", {
+      next: { tags: [constants.blogsTag] },
+    });
     return await result.json();
   } catch (error) {
     console.error("Error getting blog posts:", error);
@@ -24,7 +28,8 @@ export const getBlogPosts = async () => {
 export const getMyBlogPosts = async (authorId) => {
   try {
     const result = await fetch(
-      `http://localhost:5000/posts?authorId=${authorId}`
+      `http://localhost:5000/posts?authorId=${authorId}`,
+      { next: { tags: [constants.blogsTag] } }
     );
     return await result.json();
   } catch (error) {
@@ -35,7 +40,9 @@ export const getMyBlogPosts = async (authorId) => {
 
 export const getBlogPostById = async (postId) => {
   try {
-    const result = await fetch(`http://localhost:5000/posts/${postId}`);
+    const result = await fetch(`http://localhost:5000/posts/${postId}`, {
+      next: { tags: [constants.blogTag] },
+    });
     return await result.json();
   } catch (error) {
     console.error("Error getting blog post by ID:", error);

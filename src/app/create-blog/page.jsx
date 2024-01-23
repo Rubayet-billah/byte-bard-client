@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import action from "../action";
+import constants from "@/utils/constants";
 
 const CreateBlog = () => {
   const { user } = useSelector((state) => state.user);
@@ -29,6 +31,7 @@ const CreateBlog = () => {
         ...formData,
       });
       if (response.status === httpStatus.CREATED) {
+        action(constants.blogsTag);
         toast.success("Your blog is successfully posted.");
         router.push("/");
       } else {
@@ -36,6 +39,7 @@ const CreateBlog = () => {
       }
     } catch (error) {
       toast.error(error.message);
+      console.log(error);
     }
   };
 

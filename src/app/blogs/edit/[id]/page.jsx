@@ -1,9 +1,11 @@
 "use client";
+import action from "@/app/action";
 import {
   editBlogPost,
   getBlogPostById,
   updateBlogPost,
 } from "@/lib/blog/blogApi";
+import constants from "@/utils/constants";
 import httpStatus from "http-status";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -54,6 +56,8 @@ const EditBlogPost = ({ params }) => {
       });
 
       if (response.status === httpStatus.OK) {
+        action(constants.blogsTag);
+        action(constants.blogTag);
         toast.success("Your blog post is successfully updated.");
         router.push("/");
       } else {
