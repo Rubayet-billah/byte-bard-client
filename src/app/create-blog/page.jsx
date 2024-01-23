@@ -23,7 +23,11 @@ const CreateBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await createBlogPost({ userId: user._id, ...formData });
+      const response = await createBlogPost({
+        userId: user._id,
+        authorName: user.firstName + " " + user.lastName,
+        ...formData,
+      });
       if (response.status === httpStatus.CREATED) {
         toast.success("Your blog is successfully posted.");
         router.push("/");
