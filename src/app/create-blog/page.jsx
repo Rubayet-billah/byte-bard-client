@@ -2,7 +2,7 @@
 import { createBlogPost } from "@/lib/blog/blogApi";
 import httpStatus from "http-status";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import action from "../action";
@@ -42,6 +42,14 @@ const CreateBlog = () => {
       console.log(error);
     }
   };
+
+  // useEffect for private route
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+      toast("Please login first");
+    }
+  }, [user, router]);
 
   return (
     <div>

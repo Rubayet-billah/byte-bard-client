@@ -8,11 +8,13 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import action from "../action";
 import constants from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 const MyBlogs = () => {
   const { user } = useSelector((state) => state.user);
   const [blogPosts, setBlogPosts] = useState([]);
   const [refetch, setRefetch] = useState(false);
+  const router = useRouter();
 
   const handleDelete = async (blog) => {
     if (blog.author._id.toString() !== user._id) {
@@ -35,6 +37,14 @@ const MyBlogs = () => {
     };
     fetchData();
   }, [user, refetch]);
+
+  // useEffect for private route
+  useEffect(() => {
+    if (!user) {
+      toast("Please login first");
+      router.push("/login");
+    }
+  }, [user, router]);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
