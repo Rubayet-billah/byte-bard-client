@@ -1,7 +1,10 @@
 "use client";
 import { registerUser } from "@/lib/user/userApi";
+import constants from "@/utils/constants";
+import { setToLocalStorage } from "@/utils/helperFunctions";
 import httpStatus from "http-status";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -13,6 +16,7 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
   });
+  const router = useRouter();
 
   const handleChange = (e) => {
     const isCheckboxElement = e.target.type === "checkbox";
@@ -37,7 +41,11 @@ const RegisterPage = () => {
         return toast.error(response.message);
       }
 
-      if (response.data) toast.success("Registered successfully!");
+      if (response.data) {
+        setToLocalStorage(constants.authKey, response.data);
+        toast.success("Registered successfully!");
+        router.push("/");
+      }
     } catch (error) {
       console.error("Error during form submission:", error);
     }
