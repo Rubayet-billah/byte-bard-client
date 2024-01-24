@@ -50,6 +50,7 @@ const LoginPage = () => {
 
   return (
     <div>
+      <h1 className="my-5 text-3xl font-bold text-center md:text-5xl">Login</h1>
       <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
         {/* Email input */}
         <div className="mb-6">

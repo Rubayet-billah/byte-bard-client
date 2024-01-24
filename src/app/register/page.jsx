@@ -56,6 +56,10 @@ const RegisterPage = () => {
 
   return (
     <div>
+      {" "}
+      <h1 className="my-5 text-3xl font-bold text-center md:text-5xl">
+        Register
+      </h1>
       <form onSubmit={handleSubmit}>
         {/* Name inputs */}
         <div className="grid gap-6 mb-6 md:grid-cols-2">
