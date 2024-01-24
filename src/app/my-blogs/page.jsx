@@ -73,8 +73,18 @@ const MyBlogs = () => {
               </td>
               <td className="px-6 py-4">{formatStringDate(blog.createdAt)}</td>
               <td className="flex gap-2 px-6 py-4">
-                <Link href={`/blogs/edit/${blog._id}`}>Edit</Link>
-                <button onClick={() => handleDelete(blog)}>Delete</button>
+                <Link
+                  className="font-bold text-blue-500"
+                  href={`/blogs/edit/${blog._id}`}
+                >
+                  Edit
+                </Link>
+                <button
+                  className="font-bold text-red-500"
+                  onClick={() => handleDelete(blog)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
