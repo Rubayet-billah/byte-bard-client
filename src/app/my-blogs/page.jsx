@@ -12,15 +12,16 @@ import constants from "@/utils/constants";
 const MyBlogs = () => {
   const { user } = useSelector((state) => state.user);
   const [blogPosts, setBlogPosts] = useState([]);
+  const [refetch, setRefetch] = useState(false);
 
   const handleDelete = async (blog) => {
-    console.log(blog);
     if (blog.author._id.toString() !== user._id) {
       return toast.error("Unauthorized user");
     } else {
       const result = await deleteBlogPost(blog._id);
       if (result.status === httpStatus.OK) {
         action(constants.blogsTag);
+        setRefetch(!refetch);
         toast.success("Blog deleted successfully");
       }
     }
@@ -33,7 +34,7 @@ const MyBlogs = () => {
       setBlogPosts(blogs);
     };
     fetchData();
-  }, [user]);
+  }, [user, refetch]);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

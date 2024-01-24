@@ -29,7 +29,9 @@ export const getMyBlogPosts = async (authorId) => {
   try {
     const result = await fetch(
       `http://localhost:5000/posts?authorId=${authorId}`,
-      { next: { tags: [constants.blogsTag] } }
+      {
+        next: { tags: [constants.blogsTag] },
+      }
     );
     return await result.json();
   } catch (error) {
