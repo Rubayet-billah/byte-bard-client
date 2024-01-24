@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { loginUser } from "@/lib/user/userApi";
+import { setUser } from "@/redux/features/user/userSlice";
 import constants from "@/utils/constants";
 import { setToLocalStorage } from "@/utils/helperFunctions";
 import httpStatus from "http-status";
@@ -8,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,7 @@ const LoginPage = () => {
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData((previousData) => ({
@@ -36,6 +39,8 @@ const LoginPage = () => {
       if (response.data) {
         toast.success("Login successfully!");
         setToLocalStorage(constants.authKey, response.data);
+        dispatch(setUser(response.data));
+
         router.push("/");
       }
     } catch (error) {

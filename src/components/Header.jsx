@@ -1,14 +1,25 @@
 "use client";
+import { clearUser } from "@/redux/features/user/userSlice";
+import constants from "@/utils/constants";
+import { removeFromLocalStorage } from "@/utils/helperFunctions";
 import Link from "next/link";
 import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    removeFromLocalStorage(constants.authKey);
+    dispatch(clearUser());
   };
 
   const links = (
@@ -16,17 +27,30 @@ const Header = () => {
       <li>
         <Link href="/">Home</Link>
       </li>
-      <li>
-        <Link href="/create-blog">Add Blog</Link>
-      </li>
-      <li>
-        <Link href="/login">Login</Link>
-      </li>
-      <li>
-        <Link href="/my-blogs">My blogs</Link>
-      </li>
+      {user && (
+        <>
+          <li>
+            <Link href="/create-blog">Add Blog</Link>
+          </li>
+          <li>
+            <Link href="/my-blogs">My blogs</Link>
+          </li>
+        </>
+      )}
       <li>
         <Link href="/blogs">Blogs</Link>
+      </li>
+      <li>
+        {!user ? (
+          <Link href="/login">Login</Link>
+        ) : (
+          <button
+            onClick={() => handleLogout()}
+            className="px-3 py-1 font-bold text-white bg-red-600 rounded"
+          >
+            Logout
+          </button>
+        )}
       </li>
     </>
   );

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const RegisterPage = () => {
     confirmPassword: "",
   });
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const isCheckboxElement = e.target.type === "checkbox";
@@ -43,6 +45,7 @@ const RegisterPage = () => {
 
       if (response.data) {
         setToLocalStorage(constants.authKey, response.data);
+        dispatch(setUser(response.data));
         toast.success("Registered successfully!");
         router.push("/");
       }
