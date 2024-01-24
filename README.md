@@ -27,17 +27,17 @@ This project leverages [`next/font`](https://nextjs.org/docs/basic-features/font
 - **Blog Optimization**: Automatically optimize and load Inter, a custom Google Font, for enhanced readability.
 - **Blog Management**: Easily manage and showcase blog posts with the power of Next.js.
 
-## Learn More
+## Technical Features
 
-To learn more about Next.js, explore the following resources:
+- **Built using [Next.js](https://nextjs.org/):** A React framework for building web applications.
+- **Desiging:**Utilizes [Tailwind CSS](https://tailwindcss.com) as a utility for styling components.
+- **Server-Side Rendering (SSR):** Majority of the website is rendered on the server side, providing optimized performance.
+- **Efficient Data Fetching:** Utilizes Next.js built-in fetch function for data fetching with flexibility for manipulation.
+- **Data Revalidation:** Implements revalidate function in Next.js for on-demand data revalidation, preventing unnecessary fetching.
+- **Folder Structure:** Maintains a conventional folder structure for better organization.
+- **Component Architecture:** Prefers smaller child components over larger client-side components for better maintainability.
+- **Authentication:** Implements proper authentication through a custom backend server.
 
-- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - An interactive Next.js tutorial.
+For more details on the backend server, you can refer to the [backend server link](#).
 
-For contributions and feedback, check out [the Next.js GitHub repository](https://github.com/vercel/next.js/).
-
-## Deployment
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js. Refer to our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-Feel free to customize and enhance this blog website according to your needs. Happy coding!
+Feel free to explore and customize the application according to your needs. Happy coding!
