@@ -38,6 +38,6 @@ This project leverages [`next/font`](https://nextjs.org/docs/basic-features/font
 - **Component Architecture:** Prefers smaller child components over larger client-side components for better maintainability.
 - **Authentication:** Implements proper authentication through a custom backend server.
 
-For more details on the backend server, you can refer to the [backend server link](#).
+For more details on the backend server, you can refer to the [backend server link](https://github.com/Rubayet-billah/byte-bard-server).
 
 Feel free to explore and customize the application according to your needs. Happy coding!
