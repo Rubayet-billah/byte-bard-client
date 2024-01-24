@@ -39,7 +39,6 @@ const RegisterPage = () => {
       const { confirmPassword, ...restData } = formData;
       const response = await registerUser(restData);
 
-      console.log(response, "from register");
       if (response.status !== httpStatus.CREATED) {
         return toast.error(response.message);
       }
