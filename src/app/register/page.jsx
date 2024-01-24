@@ -1,5 +1,6 @@
 "use client";
 import { registerUser } from "@/lib/user/userApi";
+import { setUser } from "@/redux/features/user/userSlice";
 import constants from "@/utils/constants";
 import { setToLocalStorage } from "@/utils/helperFunctions";
 import httpStatus from "http-status";
