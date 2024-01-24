@@ -1,8 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { loginUser } from "@/lib/user/userApi";
 import constants from "@/utils/constants";
 import { setToLocalStorage } from "@/utils/helperFunctions";
 import httpStatus from "http-status";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -65,7 +67,7 @@ const LoginPage = () => {
         </div>
 
         {/* Password input */}
-        <div className="mb-6">
+        <div className="mb-2">
           <label
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900"
@@ -82,6 +84,14 @@ const LoginPage = () => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div className="mb-6">
+          <p className="text-sm">
+            Haven't an account?
+            <Link href="/register" className="ml-1 font-bold text-blue-600">
+              Register
+            </Link>
+          </p>
         </div>
 
         {/* Submit button */}

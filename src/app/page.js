@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main>
       <Banner />
-      <h2 className="text-3xl">Blogs</h2>
+      <h2 className="my-5 text-3xl font-bold">Latest Blogs</h2>
       <Blogs />
     </main>
   );

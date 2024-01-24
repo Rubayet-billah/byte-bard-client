@@ -1,6 +1,7 @@
 "use client";
 import { registerUser } from "@/lib/user/userApi";
 import httpStatus from "http-status";
+import Link from "next/link";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -124,7 +125,7 @@ const RegisterPage = () => {
             required
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-2">
           <label
             htmlFor="confirmPassword"
             className="block mb-2 text-sm font-medium text-gray-900"
@@ -141,6 +142,14 @@ const RegisterPage = () => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div className="mb-6">
+          <p className="text-sm">
+            Already have an account
+            <Link href="/login" className="ml-1 font-bold text-blue-600">
+              Login
+            </Link>
+          </p>
         </div>
 
         {/* Submit button */}
