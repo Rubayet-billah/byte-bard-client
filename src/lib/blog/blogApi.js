@@ -2,11 +2,14 @@ import constants from "@/utils/constants";
 
 export const createBlogPost = async (postData) => {
   try {
-    const result = await fetch("http://localhost:5000/posts/create-post", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(postData),
-    });
+    const result = await fetch(
+      "https://byte-bard-server-rubayet-billah.vercel.app/posts/create-post",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      }
+    );
     return await result.json();
   } catch (error) {
     console.error("Error creating blog post:", error);
@@ -16,9 +19,12 @@ export const createBlogPost = async (postData) => {
 
 export const getBlogPosts = async () => {
   try {
-    const result = await fetch("http://localhost:5000/posts", {
-      next: { tags: [constants.blogsTag] },
-    });
+    const result = await fetch(
+      "https://byte-bard-server-rubayet-billah.vercel.app/posts",
+      {
+        next: { tags: [constants.blogsTag] },
+      }
+    );
     return await result.json();
   } catch (error) {
     console.error("Error getting blog posts:", error);
@@ -28,7 +34,7 @@ export const getBlogPosts = async () => {
 export const getMyBlogPosts = async (authorId) => {
   try {
     const result = await fetch(
-      `http://localhost:5000/posts?authorId=${authorId}`,
+      `https://byte-bard-server-rubayet-billah.vercel.app/posts?authorId=${authorId}`,
       {
         next: { tags: [constants.blogsTag] },
       }
@@ -42,9 +48,12 @@ export const getMyBlogPosts = async (authorId) => {
 
 export const getBlogPostById = async (postId) => {
   try {
-    const result = await fetch(`http://localhost:5000/posts/${postId}`, {
-      next: { tags: [constants.blogTag] },
-    });
+    const result = await fetch(
+      `https://byte-bard-server-rubayet-billah.vercel.app/posts/${postId}`,
+      {
+        next: { tags: [constants.blogTag] },
+      }
+    );
     return await result.json();
   } catch (error) {
     console.error("Error getting blog post by ID:", error);
@@ -54,11 +63,14 @@ export const getBlogPostById = async (postId) => {
 
 export const updateBlogPost = async (postId, updatedData) => {
   try {
-    const result = await fetch(`http://localhost:5000/posts/${postId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedData),
-    });
+    const result = await fetch(
+      `https://byte-bard-server-rubayet-billah.vercel.app/posts/${postId}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      }
+    );
     return await result.json();
   } catch (error) {
     console.error("Error updating blog post:", error);
@@ -68,9 +80,12 @@ export const updateBlogPost = async (postId, updatedData) => {
 
 export const deleteBlogPost = async (postId) => {
   try {
-    const result = await fetch(`http://localhost:5000/posts/${postId}`, {
-      method: "DELETE",
-    });
+    const result = await fetch(
+      `https://byte-bard-server-rubayet-billah.vercel.app/posts/${postId}`,
+      {
+        method: "DELETE",
+      }
+    );
     return await result.json();
   } catch (error) {
     console.error("Error deleting blog post:", error);
